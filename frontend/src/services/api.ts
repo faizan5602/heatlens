@@ -1,7 +1,8 @@
 import { AnalysisResponse } from '../types/heatlens';
 
-// Reads from VITE_API_BASE_URL in production, falls back to localhost for local dev
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+// Use type casting to prevent TypeScript compilation errors on import.meta.env
+const env = (import.meta as any).env || {};
+const BASE_URL = env.VITE_API_BASE_URL || 'http://localhost:8000';
 const API_BASE = `${BASE_URL.replace(/\/$/, '')}/api`;
 
 async function getApiError(res: Response, fallback: string): Promise<Error> {
